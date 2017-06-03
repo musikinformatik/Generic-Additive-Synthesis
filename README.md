@@ -1,6 +1,6 @@
 # Generic Additive Synthesis
 
-Julian Rohrhuber and Juan Sebastian Lach Lau.
+Julian Rohrhuber and Juan Sebastián Lach Lau.
 
 A generalisation of additive synthesis, as described in our forthcoming article *Generic Additive Synthesis. Hints from the Early Foundational Crisis in Mathematics for Experiments in Sound Ontology*
 
