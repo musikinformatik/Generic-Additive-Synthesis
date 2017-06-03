@@ -1,9 +1,13 @@
 # Generic Additive Synthesis
 
-A generalisation of additive synthesis.
+Julian Rohrhuber and Juan Sebastian Lach Lau.
+
+A generalisation of additive synthesis, as described in our forthcoming article *Generic Additive Synthesis. Hints from the Early Foundational Crisis in Mathematics for Experiments in Sound Ontology*
+
+Here we provide some examples from the article and will add more in the future.
 
 
-A few simple examples, using the https://github.com/supercollider/supercollider language:
+A few simple examples, using [SuperCollider](https://github.com/supercollider/supercollider):
 
 ```
 
@@ -58,7 +62,7 @@ Ndef(\g, {
 ```
 
 
-Another example, using the Steno embedded language:
+Another example, using the [Steno](https://github.com/telephon/Steno) embedded language:
 
 ```
 
@@ -83,6 +87,5 @@ t.filter('.', { |in|
 
 t.setGlobal(\index, { |i| i + 1 });
 
-t.setGlobal(\dry, { |i|
 ```
 
