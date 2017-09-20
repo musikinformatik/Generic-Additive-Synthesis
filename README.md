@@ -9,7 +9,7 @@ Here we provide some examples from the article and will add more in the future.
 
 A few simple examples, using [SuperCollider](https://github.com/supercollider/supercollider):
 
-```
+```supercollider
 
 // simple case of concatenative frequency modulation
 (
@@ -64,26 +64,27 @@ Ndef(\g, {
 
 Another example, using the [Steno](https://github.com/telephon/Steno) embedded language:
 
-```
+```supercollider
 
 
+t = Steno.push(8); // a small 8 channel spectrum
 
-
-t = Steno.push(8);
-
+// definition of a spectrum composition operator G
 (
-t.filter(\g, { |in, envir|
+t.filter(\G, { |in, envir|
 	var r = \rotate.kr(0);
 	in = in.collect { |x| PanAz.ar(in.size, x, 2*r/in.size) }.sum;
 	SinOsc.ar((100 / (\index.kr + 1)), in * 2)
 });
+
+// the last node mixes down to stereo
 t.filter('.', { |in|
-	Splay.ar(in)
+	Splay.ar(in) 
 })
 );
 
 
---ggggg.
+--GGGGG.
 
 t.setGlobal(\index, { |i| i + 1 });
 
