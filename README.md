@@ -2,7 +2,7 @@
 
 Julian Rohrhuber and Juan Sebastián Lach Lau.
 
-A generalisation of additive synthesis, as described in our forthcoming article *Generic Additive Synthesis. Hints from the Early Foundational Crisis in Mathematics for Experiments in Sound Ontology*
+A generalisation of additive synthesis, as described in our article [Generic Additive Synthesis. Hints from the Early Foundational Crisis in Mathematics for Experiments in Sound Ontology](https://link.springer.com/chapter/10.1007/978-3-319-47337-6_27)
 
 Here we provide some examples from the article and will add more in the future.
 
