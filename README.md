@@ -11,17 +11,17 @@ A few simple examples, using [SuperCollider](https://github.com/supercollider/su
 
 ```supercollider
 
-// simple case of concatenative frequency modulation
+// simple case of concatenative frequency (phase) modulation
 (
 Ndef(\g, {
-	var combinator = { |a, b| a <> b };
-	var c = { |i| LFTri.ar(1 / i, 1 / i).range(-1, 1).max(0) };
+	var combinator = { |a, b| a <> b }; // operator: function composition
+	var c = { |i| LFTri.ar(1 / i, 1 / i).range(-1, 1).max(0) }; // spectrum: time varying
 	var g = { |x, i|
-		SinOsc.ar(i * 40, x * 3)
+		SinOsc.ar(i * 40, x * 3) // basis: sine function that takes a modulated phase argument
 	};
 	var n = (1..12); // number of operands
 	n.inject(0, { |x, i| // inject is also known as left fold. Base case is 0 here
-		g.(x, i) * c.(i) + (x * (1 - c.(i)))
+		g.(x, i) * c.(i) + (x * (1 - c.(i))) // this is so we get 0 as the neutral element
 	}) * 0.1
 }).play;
 )
@@ -30,10 +30,10 @@ Ndef(\g, {
 (
 Ndef(\g, {
 
-	var combinator = { |a, b| a + b }; // just binary sum here
-	var c = { |i| 1 / ((i % 7) + (i % 8)  + (i % 11) + 1) };
+	var combinator = { |a, b| a + b }; // operator: just binary sum here
+	var c = { |i| 1 / ((i % 7) + (i % 8)  + (i % 11) + 1) }; // spectrum: jagged static shape
 	var g = { |i|
-		SinOsc.ar(110 * i) * c.(i); // basis function ("dimension")
+		SinOsc.ar(110 * i) * c.(i); // basis: sine function
 	};
 	var z = (1..30); // number of operands
 	var set = z.collect { |i| g.(i) }; // sequence
@@ -43,12 +43,34 @@ Ndef(\g, {
 }).play;
 )
 
+// generic additive synthesis with a sine basis and addition, interactively control the spectral shape
+(
+Ndef(\g, {
+	var x = MouseX.kr(0, 50);
+	var y = MouseY.kr(0, 10);
+	var combinator = { |a, b| a + b }; // operator: just binary sum here
+	var c = { |i|  // spectrum: jagged dynamic shape
+		i = i * y + x; 
+		1 / (((i % 7) + (i % 8)  + (i % 11)).max(0) + 1) 
+	}; 
+	var g = { |i|
+		SinOsc.ar(50 * i) * (100 / i) * c.(i); // basis: sine function
+	};
+	var z = (1..100); // number of operands
+	var set = z.collect { |i| g.(i) }; // sequence
+	 // combine and scale output:
+	set.reduce(combinator) ! 2 * (1 / z.size)
+
+}).play;
+)
+
+
 // generic additive synthesis with a more complicated basis and a product combinator
 (
 Ndef(\g, {
-	var combinator = { |a, b| a * b };
-	var c = { |i| 8 / i };
-	var g = { |i|
+	var combinator = { |a, b| a * b }; // operator: product function
+	var c = { |i| 8 / i }; // spectrum: linear
+	var g = { |i| // basis: phase modulated pulses
 		var cn = c.(i);
 		var y1 = SinOsc.ar(120 * i, SinOsc.ar(cn * 10 * i) * (1/i));
 		var y2 = LFPulse.kr(cn, 0, SinOsc.ar(cn * i, i, 0.2, 0.3));
@@ -56,7 +78,7 @@ Ndef(\g, {
 	};
 	var n = (1..12); // number of operands
 	var set = n.collect { |i| g.(i) }; // sequence
-	LeakDC.ar(set.reduce(combinator) * (0.01 / n.size)).tanh ! 2
+	LeakDC.ar(set.reduce(combinator) * (0.01 / n.size)).tanh * 0.1 ! 2 // tanh projects the final output into range
 }).play;
 )
 ```
