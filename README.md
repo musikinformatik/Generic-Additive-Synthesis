@@ -62,9 +62,10 @@ Ndef(\g, {
 )
 ```
 
+
 Modifications of the examples from the article:
 
-```
+```supercollider
 // generic additive synthesis with a sine basis and addition, interactively control the spectral shape
 (
 Ndef(\g, {
