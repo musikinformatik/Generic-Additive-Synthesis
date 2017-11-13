@@ -11,7 +11,7 @@ A few simple examples, using [SuperCollider](https://github.com/supercollider/su
 
 ```supercollider
 
-// simple case of concatenative frequency (phase) modulation
+// simple case of concatenative frequency (phase) modulation (p. 273)
 (
 Ndef(\g, {
 	var combinator = { |a, b| a <> b }; // operator: function composition
@@ -26,7 +26,7 @@ Ndef(\g, {
 }).play;
 )
 
-// generic additive synthesis with a sine basis and addition
+// generic additive synthesis with a sine basis and addition (p. 271)
 (
 Ndef(\g, {
 
@@ -43,6 +43,28 @@ Ndef(\g, {
 }).play;
 )
 
+
+// generic additive synthesis with a more complicated basis and a product combinator  (p. 271)
+(
+Ndef(\g, {
+	var combinator = { |a, b| a * b }; // operator: product function
+	var c = { |i| 8 / i }; // spectrum: linear
+	var g = { |i| // basis: phase modulated pulses
+		var cn = c.(i);
+		var y1 = SinOsc.ar(120 * i, SinOsc.ar(cn * 10 * i) * (1/i));
+		var y2 = LFPulse.kr(cn, 0, SinOsc.ar(cn * i, i, 0.2, 0.3));
+		y1 * y2 * cn + 1
+	};
+	var n = (1..12); // number of operands
+	var set = n.collect { |i| g.(i) }; // sequence
+	LeakDC.ar(set.reduce(combinator) * (0.01 / n.size)).tanh * 0.1 ! 2 // tanh projects the final output into range
+}).play;
+)
+```
+
+Modifications of the examples from the article:
+
+```
 // generic additive synthesis with a sine basis and addition, interactively control the spectral shape
 (
 Ndef(\g, {
@@ -61,24 +83,6 @@ Ndef(\g, {
 	 // combine and scale output:
 	set.reduce(combinator) ! 2 * (1 / z.size)
 
-}).play;
-)
-
-
-// generic additive synthesis with a more complicated basis and a product combinator
-(
-Ndef(\g, {
-	var combinator = { |a, b| a * b }; // operator: product function
-	var c = { |i| 8 / i }; // spectrum: linear
-	var g = { |i| // basis: phase modulated pulses
-		var cn = c.(i);
-		var y1 = SinOsc.ar(120 * i, SinOsc.ar(cn * 10 * i) * (1/i));
-		var y2 = LFPulse.kr(cn, 0, SinOsc.ar(cn * i, i, 0.2, 0.3));
-		y1 * y2 * cn + 1
-	};
-	var n = (1..12); // number of operands
-	var set = n.collect { |i| g.(i) }; // sequence
-	LeakDC.ar(set.reduce(combinator) * (0.01 / n.size)).tanh * 0.1 ! 2 // tanh projects the final output into range
 }).play;
 )
 ```
