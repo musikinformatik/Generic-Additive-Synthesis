@@ -6,12 +6,11 @@ A generalisation of additive synthesis, as described in our article [Generic Add
 
 Here we provide some examples from the article and will add more in the future.
 
-
 A few simple examples, using [SuperCollider](https://github.com/supercollider/supercollider):
 
-```supercollider
+## Simple case of concatenative frequency (phase) modulation (p. 273)
 
-// simple case of concatenative frequency (phase) modulation (p. 273)
+```supercollider
 (
 Ndef(\g, {
 	var combinator = { |a, b| a <> b }; // operator: function composition
@@ -25,8 +24,13 @@ Ndef(\g, {
 	}) * 0.1
 }).play;
 )
+```
 
-// generic additive synthesis with a sine basis and addition (p. 271)
+[sound_examples/example_1.flac](sound_examples/example_1.flac)
+
+## Generic additive synthesis with a sine basis and addition (p. 271)
+
+```supercollider
 (
 Ndef(\g, {
 
@@ -42,9 +46,12 @@ Ndef(\g, {
 
 }).play;
 )
+```
 
+[sound_examples/example_2.flac](sound_examples/example_2.flac)
+## Generic additive synthesis with a more complicated basis and a product combinator  (p. 271)
 
-// generic additive synthesis with a more complicated basis and a product combinator  (p. 271)
+```supercollider
 (
 Ndef(\g, {
 	var combinator = { |a, b| a * b }; // operator: product function
@@ -62,11 +69,12 @@ Ndef(\g, {
 )
 ```
 
+[sound_examples/example_3.flac](sound_examples/example_3.flac)
+## Modifications of the examples from the article
 
-Modifications of the examples from the article:
+### Generic additive synthesis with a sine basis and addition, interactively control the spectral shape
 
 ```supercollider
-// generic additive synthesis with a sine basis and addition, interactively control the spectral shape
 (
 Ndef(\g, {
 	var x = MouseX.kr(0, 50);
@@ -88,11 +96,13 @@ Ndef(\g, {
 )
 ```
 
+[sound_examples/example_4.flac](sound_examples/example_4.flac)
+
+### Steno
 
 Another example, using the [Steno](https://github.com/telephon/Steno) embedded language:
 
 ```supercollider
-
 
 t = Steno.push(8); // a small 8 channel spectrum
 
@@ -117,3 +127,4 @@ t.setGlobal(\index, { |i| i + 1 });
 
 ```
 
+[sound_examples/example_5.flac](sound_examples/example_5.flac)
