@@ -57,7 +57,8 @@ Ndef(\g, {
 	};
 	var n = (1..12); // number of operands
 	var set = n.collect { |i| g.(i) }; // sequence
-	LeakDC.ar(set.reduce(combinator) * (0.01 / n.size)).tanh * 0.1 ! 2 // tanh projects the final output into range
+	var sig = LeakDC.ar(set.reduce(combinator) * (0.01 / n.size)).tanh * 0.1 ! 2; // tanh projects the final output into range
+	sig;
 }).play;
 )
 ```
