@@ -26,7 +26,7 @@ Ndef(\g, {
 )
 ```
 
-[sound_examples/example_1.flac](sound_examples/example_1.flac)
+[sound_examples/example_1.flac](sound_examples/example_1.flac?raw=true)
 
 ## Generic additive synthesis with a sine basis and addition (p. 271)
 
@@ -48,7 +48,7 @@ Ndef(\g, {
 )
 ```
 
-[sound_examples/example_2.flac](sound_examples/example_2.flac)
+[sound_examples/example_2.flac](sound_examples/example_2.flac?raw=true)
 ## Generic additive synthesis with a more complicated basis and a product combinator  (p. 271)
 
 ```supercollider
@@ -69,7 +69,7 @@ Ndef(\g, {
 )
 ```
 
-[sound_examples/example_3.flac](sound_examples/example_3.flac)
+[sound_examples/example_3.flac](sound_examples/example_3.flac?raw=true)
 ## Modifications of the examples from the article
 
 ### Generic additive synthesis with a sine basis and addition, interactively control the spectral shape
@@ -96,7 +96,7 @@ Ndef(\g, {
 )
 ```
 
-[sound_examples/example_4.flac](sound_examples/example_4.flac)
+[sound_examples/example_4.flac](sound_examples/example_4.flac?raw=true)
 
 ### Steno
 
@@ -127,4 +127,4 @@ t.setGlobal(\index, { |i| i + 1 });
 
 ```
 
-[sound_examples/example_5.flac](sound_examples/example_5.flac)
+[sound_examples/example_5.flac](sound_examples/example_5.flac?raw=true)
